@@ -1,10 +1,12 @@
 package com.example.fragmentos_2
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 
@@ -30,6 +32,15 @@ class FragmentList : Fragment() {
             android.R.layout.simple_list_item_1, list
         )
         lista.setAdapter(adapter);
+        lista.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l ->
+            cargar_actividad(list.get(i))
+        }
         return view
+    }
+
+    fun cargar_actividad(item: String) {
+        val intent = Intent(activity, ActivityDetail::class.java)
+        intent.putExtra("ITEM", item)
+        startActivity(intent)
     }
 }
