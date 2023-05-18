@@ -39,8 +39,15 @@ class FragmentList : Fragment() {
     }
 
     fun cargar_actividad(item: String) {
-        val intent = Intent(activity, ActivityDetail::class.java)
-        intent.putExtra("ITEM", item)
-        startActivity(intent)
+        val detail =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.activity_main_detail)
+                    as FragmentDetail?
+        if (detail != null && detail.isInLayout) {
+            detail.cargar_detalle(item)
+        } else {
+            val intent = Intent(activity, ActivityDetail::class.java)
+            intent.putExtra("ITEM", item)
+            startActivity(intent)
+        }
     }
 }
